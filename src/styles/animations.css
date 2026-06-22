@@ -1,0 +1,62 @@
+/* Dance animation - combines multiple movements */
+@keyframes dance {
+  0%   { transform: translateY(0)   rotate(0deg)   scale(1); }
+  10%  { transform: translateY(-15px) rotate(-8deg)  scale(1.05); }
+  20%  { transform: translateY(-5px)  rotate(8deg)   scale(1); }
+  30%  { transform: translateY(-20px) rotate(-6deg)  scale(1.08); }
+  40%  { transform: translateY(-8px)  rotate(6deg)   scale(1.02); }
+  50%  { transform: translateY(-25px) rotate(0deg)   scale(1.1); }
+  60%  { transform: translateY(-8px)  rotate(-6deg)  scale(1.02); }
+  70%  { transform: translateY(-20px) rotate(6deg)   scale(1.08); }
+  80%  { transform: translateY(-5px)  rotate(-8deg)  scale(1); }
+  90%  { transform: translateY(-15px) rotate(8deg)   scale(1.05); }
+  100% { transform: translateY(0)   rotate(0deg)   scale(1); }
+}
+
+/* Side-to-side wiggle for body */
+@keyframes wiggle {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(-10deg); }
+  50%  { transform: rotate(0deg); }
+  75%  { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Arm wave animation */
+@keyframes armWave {
+  0%   { transform: rotate(-20deg); }
+  50%  { transform: rotate(30deg); }
+  100% { transform: rotate(-20deg); }
+}
+
+/* Tail wag */
+@keyframes tailWag {
+  0%   { transform: rotate(0deg); }
+  33%  { transform: rotate(20deg); }
+  66%  { transform: rotate(-20deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Bounce for idle state */
+@keyframes idleBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+/* Stars / music notes floating */
+@keyframes floatUp {
+  0%   { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+  100% { opacity: 0; transform: translateY(-80px) scale(1.5) rotate(30deg); }
+}
+
+/* Spotlight pulse */
+@keyframes spotlightPulse {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50%       { opacity: 0.3;  transform: scale(1.05); }
+}
+
+/* Button glow */
+@keyframes buttonGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.4); }
+  50%       { box-shadow: 0 0 25px rgba(255, 215, 0, 0.8); }
+}
