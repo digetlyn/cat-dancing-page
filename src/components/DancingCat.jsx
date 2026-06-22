@@ -1,8 +1,22 @@
 import { useEffect, useState } from 'react';
-import catSvg from '../assets/images/cat.svg';
+import CatSVG from './CatSVG';
 import '../styles/animations.css';
 
 const NOTES = ['♪', '♫', '🎵', '🎶', '★', '✨'];
+
+const SPEED_TO_EXPR = { 0.5: 'slow', 1: 'normal', 2: 'fast' };
+
+const SPEED_FILTER = {
+  slow:   'hue-rotate(160deg) saturate(0.8)',
+  normal: 'none',
+  fast:   'hue-rotate(330deg) saturate(2) brightness(1.15)',
+};
+
+const SPEECH = {
+  slow:   '느리게....지금 페이스 좋아요.',
+  normal: '아주 이지해요~!!!',
+  fast:   '존나 빨라요!!!',
+};
 
 export default function DancingCat({ isPlaying, speed }) {
   const [particles, setParticles] = useState([]);
@@ -32,6 +46,7 @@ export default function DancingCat({ isPlaying, speed }) {
   }, [particles]);
 
   const duration = (0.8 / speed).toFixed(2);
+  const expr = SPEED_TO_EXPR[speed] ?? 'normal';
 
   return (
     <div className="cat-stage">
@@ -59,6 +74,13 @@ export default function DancingCat({ isPlaying, speed }) {
         ))}
       </div>
 
+      {/* Speech bubble */}
+      {isPlaying && (
+        <div key={expr} className="speech-bubble">
+          {SPEECH[expr]}
+        </div>
+      )}
+
       {/* Cat */}
       <div
         className={`cat-wrapper ${isPlaying ? 'dancing' : 'idle'}`}
@@ -67,11 +89,16 @@ export default function DancingCat({ isPlaying, speed }) {
             ? { animation: `dance ${duration}s ease-in-out infinite` }
             : { animation: `idleBounce 2s ease-in-out infinite` }
         }
-        onClick={() => {}}
         role="img"
         aria-label={isPlaying ? '춤추는 고양이' : '쉬고 있는 고양이'}
       >
-        <img src={catSvg} alt="고양이" className="cat-image" />
+        <CatSVG
+          expression={expr}
+          style={{
+            filter: SPEED_FILTER[expr],
+            transition: 'filter 0.6s ease',
+          }}
+        />
       </div>
 
       {/* Shadow */}
