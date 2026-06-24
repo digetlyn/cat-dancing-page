@@ -34,7 +34,16 @@ export default function PostDetail({ post, comments, user, onBack, onEdit, onDel
             <span>{timeAgo(post.createdAt)}</span>
             {post.updatedAt && <span>(수정됨)</span>}
           </div>
+
+          {/* 이미지 */}
+          {post.imageData && (
+            <div className="post-image-wrap">
+              <img src={post.imageData} alt="첨부 이미지" className="post-image" />
+            </div>
+          )}
+
           <div className="post-content">{post.content}</div>
+
           {isAuthor && (
             <div className="post-author-actions">
               <button className="btn-sm btn-edit" onClick={() => onEdit(post)}>수정</button>
@@ -49,9 +58,17 @@ export default function PostDetail({ post, comments, user, onBack, onEdit, onDel
 
         {user ? (
           <div className="comment-write">
-            <textarea className="comment-textarea" placeholder="댓글을 입력하세요" value={commentText} onChange={e => setCommentText(e.target.value)} rows={3} />
+            <textarea
+              className="comment-textarea"
+              placeholder="댓글을 입력하세요"
+              value={commentText}
+              onChange={e => setCommentText(e.target.value)}
+              rows={3}
+            />
             <div style={{ textAlign: 'right', marginTop: 8 }}>
-              <button className="btn-submit btn-sm" onClick={handleComment} disabled={!commentText.trim()}>댓글 등록</button>
+              <button className="btn-submit btn-sm" onClick={handleComment} disabled={!commentText.trim()}>
+                댓글 등록
+              </button>
             </div>
           </div>
         ) : (
@@ -62,8 +79,12 @@ export default function PostDetail({ post, comments, user, onBack, onEdit, onDel
           {postComments.length === 0
             ? <p className="no-comments">아직 댓글이 없어요. 첫 댓글을 남겨보세요!</p>
             : postComments.map(c => (
-              <Comment key={c.id} comment={c} allComments={comments.filter(cc => cc.postId === post.id)}
-                user={user} depth={0} onAdd={onAddComment} onUpdate={onUpdateComment} onDelete={onDeleteComment} onReact={onReact} />
+              <Comment key={c.id} comment={c}
+                allComments={comments.filter(cc => cc.postId === post.id)}
+                user={user} depth={0}
+                onAdd={onAddComment} onUpdate={onUpdateComment}
+                onDelete={onDeleteComment} onReact={onReact}
+              />
             ))
           }
         </div>

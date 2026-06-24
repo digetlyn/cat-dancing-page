@@ -11,8 +11,8 @@ export function usePosts() {
   const [posts, setPosts] = useState(() => load(POSTS_KEY));
   const [comments, setComments] = useState(() => load(COMMENTS_KEY));
 
-  const addPost = (title, content, author) => {
-    const post = { id: genId(), title, content, author, createdAt: new Date().toISOString(), deleted: false };
+  const addPost = (title, content, author, imageData = null) => {
+    const post = { id: genId(), title, content, author, imageData, createdAt: new Date().toISOString(), deleted: false };
     const next = [post, ...posts];
     setPosts(next); save(POSTS_KEY, next);
     return post.id;

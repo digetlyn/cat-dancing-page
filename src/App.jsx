@@ -10,12 +10,6 @@ import { useAnimation } from './hooks/useAnimation';
 import { useAuth } from './hooks/useAuth';
 import { usePosts } from './hooks/usePosts';
 
-const BG = {
-  0.5: 'linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)',
-  1:   'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-  2:   'linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%)',
-};
-
 export default function App() {
   const [activePage, setActivePage] = useState('cat');
   const { isPlaying, speed, toggle, changeSpeed } = useAnimation();
@@ -37,7 +31,7 @@ export default function App() {
       <div className="page-content">
         {/* Cat page */}
         {activePage === 'cat' && (
-          <div className="app-bg" style={{ background: BG[speed] }}>
+          <div className="app-bg">
             <Layout>
               <DancingCat isPlaying={isPlaying} speed={speed} />
               <AnimationControls isPlaying={isPlaying} speed={speed} onToggle={toggle} onSpeedChange={changeSpeed} />

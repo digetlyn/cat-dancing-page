@@ -1,13 +1,29 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export default function PostForm({ initial, onSubmit, onCancel }) {
   const [title, setTitle] = useState(initial?.title || '');
   const [content, setContent] = useState(initial?.content || '');
+  const [imageData, setImageData] = useState(initial?.imageData || null);
+  const [imageError, setImageError] = useState('');
+  const fileRef = useRef();
+
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      setImageError('이미지는 2MB 이하만 가능해요');
+      return;
+    }
+    setImageError('');
+    const reader = new FileReader();
+    reader.onload = (ev) => setImageData(ev.target.result);
+    reader.readAsDataURL(file);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title.trim() || !content.trim()) return;
-    onSubmit(title.trim(), content.trim());
+    onSubmit(title.trim(), content.trim(), imageData);
   };
 
   return (
@@ -26,8 +42,24 @@ export default function PostForm({ initial, onSubmit, onCancel }) {
           placeholder="내용을 입력하세요"
           value={content}
           onChange={e => setContent(e.target.value)}
-          rows={10}
+          rows={8}
         />
+
+        {/* Image upload */}
+        <div className="image-upload-area">
+          <button type="button" className="btn-image" onClick={() => fileRef.current.click()}>
+            🖼️ 이미지 첨부 {imageData ? '(변경)' : ''}
+          </button>
+          <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleImage} />
+          {imageError && <span className="image-error">{imageError}</span>}
+          {imageData && (
+            <div className="image-preview-wrap">
+              <img src={imageData} alt="미리보기" className="image-preview" />
+              <button type="button" className="btn-remove-image" onClick={() => setImageData(null)}>✕ 제거</button>
+            </div>
+          )}
+        </div>
+
         <div className="form-actions">
           <button type="button" className="btn-cancel" onClick={onCancel}>취소</button>
           <button type="submit" className="btn-submit" disabled={!title.trim() || !content.trim()}>

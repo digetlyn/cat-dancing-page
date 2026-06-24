@@ -19,7 +19,28 @@
 
 .board-header-right { display: flex; align-items: center; gap: 10px; }
 
-.user-info { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #555; }
+.user-info { display: flex; align-items: center; gap: 12px; }
+
+.user-detail { display: flex; flex-direction: column; gap: 2px; }
+
+.user-name { font-size: 0.9rem; font-weight: 700; color: #444; }
+
+.user-joined { font-size: 0.75rem; color: #aaa; }
+
+.day-count {
+  font-size: 0.78rem; color: #764ba2; font-weight: 600;
+  background: #f3eeff; padding: 2px 8px; border-radius: 10px;
+}
+
+.day-count.milestone {
+  background: #fff3cd; color: #b8860b; font-weight: 800;
+  animation: milestoneGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes milestoneGlow {
+  0%, 100% { box-shadow: 0 0 4px rgba(255,215,0,0.4); }
+  50%       { box-shadow: 0 0 12px rgba(255,215,0,0.9); }
+}
 
 .btn-login {
   padding: 8px 20px; border-radius: 20px; border: none; cursor: pointer;
@@ -75,6 +96,32 @@
 }
 .page-btn:hover { background: #f8f4ff; border-color: #764ba2; color: #764ba2; }
 .page-btn.active { background: #764ba2; color: #fff; border-color: #764ba2; }
+
+/* Image upload */
+.image-upload-area { margin-bottom: 16px; }
+
+.btn-image {
+  padding: 8px 18px; border-radius: 8px; border: 1px dashed #c9a0e0;
+  background: #faf6ff; color: #764ba2; cursor: pointer; font-size: 0.88rem; font-weight: 600;
+}
+.btn-image:hover { background: #f0e6ff; }
+
+.image-error { color: #e53935; font-size: 0.82rem; margin-left: 10px; }
+
+.image-preview-wrap { margin-top: 10px; position: relative; display: inline-block; }
+
+.image-preview { max-width: 100%; max-height: 300px; border-radius: 8px; object-fit: contain; border: 1px solid #eee; }
+
+.btn-remove-image {
+  position: absolute; top: 6px; right: 6px;
+  background: rgba(0,0,0,0.55); color: #fff; border: none;
+  border-radius: 6px; padding: 3px 8px; font-size: 0.78rem; cursor: pointer;
+}
+
+/* Post image */
+.post-image-wrap { margin: 16px 0; text-align: center; }
+
+.post-image { max-width: 100%; max-height: 480px; border-radius: 10px; object-fit: contain; border: 1px solid #eee; }
 
 /* Post detail */
 .post-detail { padding: 8px 0; }
